@@ -26,6 +26,20 @@ const sistema_o = {
   },
 };
 
+const sistema_d = {
+  rettangolo: {
+    x: 0,
+    y: 0,
+    w: 4.5,
+    h: 9,
+  },
+  cerchio: {
+    x: 4.5,
+    y: 4.5,
+    r: 4.5,
+  },
+};
+
 let sistema = {
   rettangolo: { ...sistema_p.rettangolo },
   cerchio: { ...sistema_p.cerchio },
@@ -33,32 +47,43 @@ let sistema = {
 
 function setup() {
   createCanvas(windowWidth, windowHeight);
-  let tl = gsap.timeline({ repeat: -1, yoyo: true });
+  let tl = gsap.timeline({ repeat: -1, yoyo: false });
 
-  // Tween ogni singola proprietà
+  // Tween ogni singola proprietà (lettera da P a O)
   tl.to(
     sistema.rettangolo,
-    {
-      x: sistema_o.rettangolo.x,
-      y: sistema_o.rettangolo.y,
-      w: sistema_o.rettangolo.w,
-      h: sistema_o.rettangolo.h,
-      duration: 4,
-      ease: "power1.inOut",
-    },
+    { ...sistema_o.rettangolo, duration: 4, ease: "power1.inOut" },
     0
   );
 
   tl.to(
     sistema.cerchio,
-    {
-      x: sistema_o.cerchio.x,
-      y: sistema_o.cerchio.y,
-      r: sistema_o.cerchio.r,
-      duration: 4,
-      ease: "power1.inOut",
-    },
+    { ...sistema_o.cerchio, duration: 4, ease: "power1.inOut" },
     0
+  );
+  // // Tween ogni singola proprietà (lettera da O a D)
+  tl.to(
+    sistema.rettangolo,
+    { ...sistema_d.rettangolo, duration: 4, ease: "power1.inOut" },
+    4
+  );
+
+  tl.to(
+    sistema.cerchio,
+    { ...sistema_d.cerchio, duration: 4, ease: "power1.inOut" },
+    4
+  );
+  // // Tween ogni singola proprietà (lettera da D a P)
+  tl.to(
+    sistema.rettangolo,
+    { ...sistema_p.rettangolo, duration: 2, ease: "power1.inOut" },
+    8
+  );
+
+  tl.to(
+    sistema.cerchio,
+    { ...sistema_p.cerchio, duration: 2, ease: "power1.inOut" },
+    8
   );
 }
 
